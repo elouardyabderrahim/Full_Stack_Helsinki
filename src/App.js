@@ -76,14 +76,19 @@ const App = () => {
     left: 0,
     right: 0,
   });
-
+  const [allClicks, setAllClicks] = useState([]);
   const handlingTheRightClick = () => {
     const newClicks = {
       // left: clicks.left,
       ...clicks,
       right: clicks.right + 1,
     };
+    setAllClicks(allClicks.concat("R"));
 
+    /* allClicks.push("R");
+    setAllClicks(allClicks);
+    // Dont do this 
+    */
     setClicks(newClicks);
   };
   const handlingTheLeftClick = () => {
@@ -95,6 +100,10 @@ const App = () => {
       ...clicks,
       left: clicks.left + 1,
     };
+    setAllClicks(allClicks.concat("L"));
+    /*allClicks.push("L");
+    setAllClicks(allClicks);
+    ;*/
     setClicks(newClicks);
   };
   return (
@@ -103,6 +112,7 @@ const App = () => {
       <button onClick={handlingTheLeftClick}> left </button>
       <button onClick={handlingTheRightClick}> right </button>
       {clicks.right}
+      <p> All Clicks: {allClicks.join(" ")}</p>
     </div>
   );
 };
