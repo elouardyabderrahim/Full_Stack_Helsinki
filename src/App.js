@@ -69,50 +69,38 @@ const Display = ({ counter }) => <div>{counter}</div>;
 const Button = ({ onClick, text }) => <button onClick={onClick}>{text}</button>;
 
 export default App;*/
+
+const History = (props) => {
+  if (props.allClicks.length === 0) {
+    return <div>the app used by pressing the buttons</div>;
+  }
+  return <p>button press History: {props.allClicks.join(" ")}</p>;
+};
+
+const Button = ({ onClick, text }) => {
+  return <button onClick={onClick}>{text}</button>;
+};
 const App = () => {
   // const [left, setLeft] = useState(0);
   // const [right, setRight] = useState(0);
-  const [clicks, setClicks] = useState({
-    left: 0,
-    right: 0,
-  });
+  const [left, setLeft] = useState(0);
+  const [right, setRight] = useState(0);
   const [allClicks, setAllClicks] = useState([]);
   const handlingTheRightClick = () => {
-    const newClicks = {
-      // left: clicks.left,
-      ...clicks,
-      right: clicks.right + 1,
-    };
+    setRight(right + 1);
     setAllClicks(allClicks.concat("R"));
-
-    /* allClicks.push("R");
-    setAllClicks(allClicks);
-    // Dont do this 
-    */
-    setClicks(newClicks);
   };
   const handlingTheLeftClick = () => {
-    const newClicks = {
-      // right: clicks.right,
-      /*
-      spread syntax vs rest syntax....
-      */
-      ...clicks,
-      left: clicks.left + 1,
-    };
+    setLeft(left + 1);
     setAllClicks(allClicks.concat("L"));
-    /*allClicks.push("L");
-    setAllClicks(allClicks);
-    ;*/
-    setClicks(newClicks);
   };
   return (
     <div>
-      {clicks.left}
-      <button onClick={handlingTheLeftClick}> left </button>
-      <button onClick={handlingTheRightClick}> right </button>
-      {clicks.right}
-      <p> All Clicks: {allClicks.join(" ")}</p>
+      {left}
+      <Button onClick={handlingTheLeftClick} text="left" />
+      <Button onClick={handlingTheRightClick} text="right" />
+      {right}
+      <History allClicks={allClicks} />
     </div>
   );
 };
